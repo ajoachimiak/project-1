@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Podgląd{% endblock %}
+
+{% block body %}
+    <table class="table float-left w-25">
+        <tbody>
+            <tr>
+                <td>
+                    {{ form_start(reportForm) }}
+                        {{ form_widget(reportForm.place) }}
+                        <div class="input-group input-daterange">
+                            <div>
+                                Od: {{ form_widget(reportForm.creationDateStart) }}
+                            </div>
+                            <div>
+                                Do: {{ form_widget(reportForm.creationDateEnd) }}
+                            </div>
+                        </div>
+                    {{ form_end(reportForm) }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table float-left w-75">
+        <thead>
+            <tr>
+                <th scope="col">Nazwa</th>
+                <th scope="col">Data</th>
+                <th scope="col">Godzina</th>
+                <th scope="col">Użytkownik</th>
+                <th scope="col">Lokal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for exportMade in entityExportMade %}
+                <tr>
+                    <td>{{ exportMade.name }}</td>
+                    <td>{{ exportMade.creationDate|date('Y-m-d') }}</td>
+                    <td>{{ exportMade.creationDate|date('H:i') }}</td>
+                    <td>{{ exportMade.userName }}</td>
+                    <td>{{ exportMade.place }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
